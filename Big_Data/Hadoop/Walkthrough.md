@@ -2,8 +2,7 @@
 ## And Running Hadoop MapReduce with Python
 
 ---
-
-We followed with instructions [to install hadoop here.](https://www.digitalocean.com/community/tutorials/how-to-install-hadoop-in-stand-alone-mode-on-ubuntu-16-04)
+Our class set up Ubuntu 16.04 virtual machines on the Google Clound Platform. We followed with instructions [to install hadoop here.](https://www.digitalocean.com/community/tutorials/how-to-install-hadoop-in-stand-alone-mode-on-ubuntu-16-04)
 
 I used Hadoop 3.1.1, and had to alter the example command that was in
 the tutorial.
@@ -41,5 +40,7 @@ for line in input_stream:
 ```
 ---
 ### Reducer
+
 I did not have to change the code from the tutorial for the reducer by much. I had to use the `io` library again, and I continued the use of a `;` delimiter instead of `\t`. Again, change the shebang line to point to python3.
 ---
+### Testing the python files
