@@ -10,7 +10,7 @@ the tutorial.
 
 The search term for the grep example was not in the example files, so I searched for "hadoop" instead.
 ```console
-/usr/local/hadoop/bin/hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.1.jar grep ~/input ~/grep_example 'hadoop'
+$ /usr/local/hadoop/bin/hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.1.jar grep ~/input ~/grep_example 'hadoop'
 ```
 The output from this was:
 ```console
@@ -48,7 +48,7 @@ I did not have to change the code from the tutorial for the reducer by much. I h
 
 Straight from the linked tutorial, at the command line:
 ```console
-echo "foo foo quux labs foo bar quux" | ~/mapper.py | sort -k1,1 | ~/reducer.py
+$ echo "foo foo quux labs foo bar quux" | ~/mapper.py | sort -k1,1 | ~/reducer.py
 bar;1
 foo;3
 labs;1
@@ -68,12 +68,12 @@ had to be changed to:
 
 The full command ended up being:
 ```console
-bin/hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.1.1.jar -mapper ~/new_mapper.py -reducer ~/new_reducer.py -input ~/gutenberg/* -output ~/gutenberg_wc
+$ bin/hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.1.1.jar -mapper ~/new_mapper.py -reducer ~/new_reducer.py -input ~/gutenberg/* -output ~/gutenberg_wc
 ```
 
 To check the results:
 ```console
-head ~/gutenberg_wc/*
+$ head ~/gutenberg_wc/*
 ==> gutenberg_wc/part-00000 <==
 a;12564
 aa;2
@@ -87,4 +87,17 @@ abandonment;1
 abandons;4
 
 ==> gutenberg_wc/_SUCCESS <==
+```
+
+At this point a classmate asked me to now find the most common word among the texts. Having aggregated all of the words and their counts, I thought this would be a fun opportunity to use Apache Spark. But not really having done anything with Scala, I decided to save myself a potential headache and added headers to the file.
+```console
+$ cd ~/gutenberg_wc
+$ echo "Word;Count" > data.csv
+$ cat part-00000 >> data.csv
+$ head -5 data.csv
+Word;Count
+a;12564
+aa;2
+ab;6
+abacho;2
 ```
