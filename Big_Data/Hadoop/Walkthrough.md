@@ -9,7 +9,11 @@ I used Hadoop 3.1.1, and had to alter the example command that was in
 the tutorial.
 
 
-First, the search term for the grep example was not in the example files, so I searched for "hadoop" instead.
+The search term for the grep example was not in the example files, so I searched for "hadoop" instead.
 ```console
 /usr/local/hadoop/bin/hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.1.jar grep ~/input ~/grep_example 'hadoop'
+```
+The output from this was:
+```console
+hadoop 10
 ```
