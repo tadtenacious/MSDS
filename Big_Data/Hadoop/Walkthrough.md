@@ -101,3 +101,52 @@ aa;2
 ab;6
 abacho;2
 ```
+---
+### Apache Spark
+
+I followed most of the instructions to install [Apache Spark here.](https://www.tutorialkart.com/apache-spark/install-latest-apache-spark-on-ubuntu-16/)
+
+You can skip over the java installation and changing the path to java. But I found the `SPARK_HOME` and `PATH` variables to be set incorrectly. Instead use([I found the solution here](https://stackoverflow.com/questions/35620687/unable-to-run-spark-shell-from-bin)):
+```bash
+export SPARK_HOME=/usr/lib/spark
+export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+```
+Then you can source `~/.bashrc` and try running the spark-shell. Running the spark-shell should give you something like this:
+
+```console
+$ spark-shell
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /___/ .__/\_,_/_/ /_/\_\   version 2.3.1
+      /_/
+
+scala>
+```
+From here, it's really just two commands from the shell to find the most commonly used word among the 3 text files.
+```console
+scala> val df = spark.read.format("csv").option("sep",";").option("inferSchema","true").option("header","true").load("~/gutenberg_wc/data.csv")
+
+scala> df.orderBy(desc("Count")).limit(1).show()
++----+-------+
+|Word|  Count|
++----+-------+
+| the|55316.0|
++----+-------+
+```
+Not much of a surprise here if you have done any sort of NLP. Normally we would have removed stop-words before conducting our analysis. Still not knowing scala, I chose to write some SQL to query the dataframe to get around these prepositions and pronouns.
+```console
+scala> df.createOrReplaceTempView("words")
+scala> spark.sql("SELECT * FROM words WHERE Word NOT IN ('the','of','and','in','to','a','is','it','that','which','as','on','by','be','this','are','with','from','at','will','for','not','or','you','have','no','they','but','its','s','i') ORDER BY Count DESC").show(3)
++-----+------+
+| Word| Count|
++-----+------+
+|light|1920.0|
+|   if|1915.0|
+|  one|1874.0|
++-----+------+
+only showing top 3 rows
+scala> :quit
+```
+And there you have it. Light is probably the most common non stop-word among the 3 text files. Next steps would be doing the map reduce portion in Spark, or actually trying to learn scala. But I think I would like to do something with a larger dataset on clustered machines use Pyspark or SparkR/Sparklyr, tools I am much more comfortable with using.
