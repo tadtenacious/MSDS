@@ -55,3 +55,35 @@ labs;1
 quux;2
 ```
 ---
+### Running Python on hadoop
+
+Having followed slightly different instructions to install Hadoop from the python-hadoop tutorial we have been following, the paths had to be changed, and the `dfs` command was deprecated for `fs` (`dfs` will still run with a deprecation warning). Ultimately:
+```console
+contrib/streaming/hadoop-*streaming*.jar
+```
+had to be changed to:
+```console
+/usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-VersionNumber.jar```
+
+The full command ended up being:
+```console
+bin/hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.1.1.jar -mapper ~/new_mapper.py -reducer ~/new_reducer.py -input ~/gutenberg/* -output ~/gutenberg_wc
+```
+
+To check the results:
+```console
+head ~/gutenberg_wc/*
+==> gutenberg_wc/part-00000 <==
+a;12564
+aa;2
+ab;6
+abacho;2
+abacus;8
+abandon;12
+abandoned;7
+abandoning;4
+abandonment;1
+abandons;4
+
+==> gutenberg_wc/_SUCCESS <==
+```
