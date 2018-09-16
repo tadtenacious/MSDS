@@ -5,7 +5,7 @@
 
 We followed with instructions [to install hadoop here.](https://www.digitalocean.com/community/tutorials/how-to-install-hadoop-in-stand-alone-mode-on-ubuntu-16-04)
 
-I used Hadoop 3.1.1, and had to alter some of the commands and paths that were in
+I used Hadoop 3.1.1, and had to alter the example command that was in
 the tutorial.
 
 
