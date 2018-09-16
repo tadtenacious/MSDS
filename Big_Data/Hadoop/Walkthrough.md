@@ -45,3 +45,13 @@ I did not have to change the code from the tutorial for the reducer by much. I h
 
 ---
 ### Testing the python files
+
+Straight from the linked tutorial, at the command line:
+```console
+echo "foo foo quux labs foo bar quux" | ~/mapper.py | sort -k1,1 | ~/reducer.py
+bar;1
+foo;3
+labs;1
+quux;2
+```
+---
