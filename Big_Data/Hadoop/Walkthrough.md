@@ -63,7 +63,8 @@ contrib/streaming/hadoop-*streaming*.jar
 ```
 had to be changed to:
 ```console
-/usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-VersionNumber.jar```
+/usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-VersionNumber.jar
+```
 
 The full command ended up being:
 ```console
