@@ -20,7 +20,10 @@ hadoop 10
 ---
 Next, we worked through the instructions to [Write an Hadoop MapReduce Program in Python.](https://www.michael-noll.com/tutorials/writing-an-hadoop-mapreduce-program-in-python/)
 
-The linked tutorial used python 2. I chose to use python 3. The example files claimed to by utf-8, but I had to change the encoding to latin-1. So instead of looping over standard input, I had to import the `io` library and add the following line:
+
+### Mapper
+
+The linked tutorial used python 2. I chose to use python 3. The example files claimed to be utf-8, but I had to change the encoding to latin-1. So instead of looping over standard input, I had to import the `io` library and add the following line:
 ```python
 input_stream = io.TextIOWrapper(sys.stdin.buffer, encoding='latin-1')
 ```
@@ -36,4 +39,7 @@ for line in input_stream:
   for word in words:
       print('{};{}'.format(current_word, current_count))
 ```
+---
+### Reducer
+I did not have to change the code from the tutorial for the reducer by much. I had to use the `io` library again, and I continued the use of a `;` delimiter instead of `\t`. Again, change the shebang line to point to python3.
 ---
