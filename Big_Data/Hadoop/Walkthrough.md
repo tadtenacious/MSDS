@@ -1,5 +1,5 @@
 # Installing Hadoop and Apache Spark
-## And Running Map Reduce with Python
+## And Running Hadoop MapReduce with Python
 
 ---
 
@@ -17,3 +17,5 @@ The output from this was:
 ```console
 hadoop 10
 ```
+---
+Next, we worked through the instructions to [Write an Hadoop MapReduce Program in Python](https://www.michael-noll.com/tutorials/writing-an-hadoop-mapreduce-program-in-python/)
