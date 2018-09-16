@@ -42,5 +42,6 @@ for line in input_stream:
 ### Reducer
 
 I did not have to change the code from the tutorial for the reducer by much. I had to use the `io` library again, and I continued the use of a `;` delimiter instead of `\t`. Again, change the shebang line to point to python3.
+
 ---
 ### Testing the python files
