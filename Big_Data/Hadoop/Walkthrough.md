@@ -149,4 +149,4 @@ scala> spark.sql("SELECT * FROM words WHERE Word NOT IN ('the','of','and','in','
 only showing top 3 rows
 scala> :quit
 ```
-And there you have it. Light is probably the most common non stop-word among the 3 text files. Next steps would be doing the map reduce portion in Spark, or actually trying to learn scala. But I think I would like to do something with a larger dataset on clustered machines use Pyspark or SparkR/Sparklyr, tools I am much more comfortable with using.
+And there you have it. Light is probably the most common non stop-word among the 3 text files. Next steps would be doing the map reduce portion in Spark, or actually trying to learn scala. But I think I would like to do something with a larger dataset on clustered machines that use Pyspark or SparkR/Sparklyr, tools I am much more comfortable with using.
