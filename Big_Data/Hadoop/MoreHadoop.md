@@ -58,4 +58,16 @@ After finding [this stackoverflow answer](https://stackoverflow.com/questions/35
 However, the same error was thrown, but this time in the reduce portion. It was at this point I decided to throw in the towel. Hadoop is for spreading out large data across multiple machines. Here, we are using a single micro-instance to run hadoop on a group of files that are too large for the machine to handle.
 
 ---
-### Spark to the Rescue
+### Giving (Py)Spark a Shot
+
+In the `Walkthrough.md`, I installed Apache Spark to read the csv file I created for the word counts of 3 files to find the most frequently used word. This time, I wanted see if Spark could do the mapreduce across all 3,000+ files. Spark comes with pyspark (python 2.7), and I write python, so it seemed like the best way to go. You could do this without regular expressions, and you could do this in less lines of code. I chose to do this at the console, and with Spark being in my path, from the user home directory, `$ pyspark`. Then I entered the following code:
+
+```python
+>>> import re
+>>> rdd = sc.textFile('all_guten/*')
+>>> lines = rdd.flatMap(lambda line: re.findall(r'[A-Za-z]+',line))
+>>> counts = lines.map(lambda word: (word.lower(),1)).reduceByKey(lambda a
+, b: a+b)
+>>> counts.coalesce(1).saveAsTextFile('spark_guten_count.csv')
+```                                        
+After importing the `re` module, the second line reads in every file in the directory into a Spark [Resilient Distributed Dataset (RDD)](https://spark.apache.org/docs/latest/rdd-programming-guide.html#resilient-distributed-datasets-rdds). According to the docs, it *"is a fault-tolerant collection of elements that can be operated on in parallel."* Not that doing anything in parallel could help us here (a single machine with a single core). `flatMap` maps a function to an input like `map` but it needs to return a sequence, so it flattens a lists of lists into one. Then the normal map reduce comes into play. You will notice at this point that reading in the file, using `flatMap`, `map`, and then `reduceByKey` don't take much time at all. That's because data transformations in Spark are lazily evaluated. Results aren't computed until an actual value needs to be returned by the program[[docs]](https://spark.apache.org/docs/latest/rdd-programming-guide.html#rdd-operations). So `flatMap` and `map` return RDDs, which are lazy. You will notice that on a tiny machine like the one used here, saving the RDD will take forever and will probably hang your cpu. If you remove the `.coalesce(1)` You can get the program to complete, but your results will be spread out across many files, one for every input file of your RDD. In my case, 3,035 files. Again, [according to the docs](https://spark.apache.org/docs/latest/rdd-programming-guide.html#external-datasets), you will have one partition for every "block" in your dataset. A block being the HDFS default block of 128MB.
