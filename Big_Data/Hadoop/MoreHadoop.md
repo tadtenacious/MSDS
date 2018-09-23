@@ -14,7 +14,7 @@ Now that I had downloaded and extracted all 3,000+ text file for over 1Gb of dat
 bin/hadoop jar share/hadoop/
 tools/lib/hadoop-streaming-3.1.1.jar \
 -mapper ~/mapper.py \
--reducer ~/reducer.py
+-reducer ~/reducer.py \
 -input ~/all_guten/* \
 -output ~/guten_count
 ```
