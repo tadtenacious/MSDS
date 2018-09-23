@@ -11,8 +11,7 @@ Then I extracted the zipfile into a new directory, `all_guten`.
 ### Trouble Shooting
 Now that I had downloaded and extracted all 3,000+ text file for over 1Gb of data, I used the command:
 ```
-bin/hadoop jar share/hadoop/
-tools/lib/hadoop-streaming-3.1.1.jar \
+bin/hadoop jar share/hadoop/tools/lib/hadoop-streaming-3.1.1.jar \
 -mapper ~/mapper.py \
 -reducer ~/reducer.py \
 -input ~/all_guten/* \
