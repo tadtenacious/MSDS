@@ -42,4 +42,20 @@ bin/hadoop jar share/hadoop/tools/lib/hadoop-streaming-3.1.1.jar \
 -input ~/all_guten/* \
 -output ~/guten_count
 ```  
-Now there was a new error: `java.lang.OutOfMemoryError: Java heap space`
+Now there was a new error during mapping: `java.lang.OutOfMemoryError: Java heap space`
+
+After finding [this stackoverflow answer](https://stackoverflow.com/questions/35742794/java-heap-space-error-while-executing-mapreduce?noredirect=1&lq=1), I added a few lines to the mapred-site.xml configureation in `/usr/local/hadoop/etc/hadoop`:
+```xml
+<property>
+    <name>mapreduce.map.java.opts</name>
+    <value>Xmx4096m</value>
+</property>
+<property>
+    <name>mapreduce.reduce.java.opts</name>
+    <value>Xmx4096m</value>
+</property>
+```
+However, the same error was thrown, but this time in the reduce portion. It was at this point I decided to throw in the towel. Hadoop is for spreading out large data across multiple machines. Here, we are using a single micro-instance to run hadoop on a group of files that are too large for the machine to handle.
+
+---
+### Spark to the Rescue
