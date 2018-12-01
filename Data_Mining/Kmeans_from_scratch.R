@@ -1,4 +1,4 @@
-#Calculates Euclidian distance between a matrix and a vector
+#Calculates Euclidean distance between a matrix and a vector
 #Returns a vector
 #Vector length must be the same length of a row from the matrix
 vec_dist <- function(matrix,vec) {
@@ -7,7 +7,7 @@ vec_dist <- function(matrix,vec) {
   return(dvec)
 }
 
-#Calculates the Euclidian distance between a matrix and multiple vectors
+#Calculates the Euclidean distance between a matrix and multiple vectors
 #Calls vec_dist() for each centroid/K iterations
 mat_dist <- function(matrix, centroids, K) {
   dist_mat <- matrix(nrow = nrow(matrix),ncol = nrow(centroids))
