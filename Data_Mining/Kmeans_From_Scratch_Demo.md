@@ -8,13 +8,13 @@ Implementing K-means from Scratch in R
 
 This is a short walk through of implementing the k-mean algorithm from scratch as implemented in [Kmeans\_from\_scratch.R](https://github.com/tadtenacious/MSDS/blob/master/Data_Mining/Kmeans_from_scratch.R) located in this repo. This was an assignment in a Data Mining class for my Master of Data Science program.
 
-K-means is an unsupervised clustering algorithm. It begins by choosing a value for *K*, indicating the desired number of clusters. Once this value has been chosen, then *K* rows/points are randomly chosen within a matrix and are assigned as centroids or centers of a cluster. Then the [Euclidean Distance](https://en.wikipedia.org/wiki/Euclidean_distance) is calculated for each row to each centroid. This creates the distance matrix of *n* rows and *K* columns where each row consists of the distances to each centroid. Then for each row, the minimum distance is used to assign the row to a cluster. Then within each cluster, or matrix subset, all of the rows are averged together to create a new centroid. Then the Euclidean Distance calculation and cluster assignment process is repeated and compared with the previous cluster assignments until there is no differnce (convergence) between cluster assignments or a predetermined number of iterations has been completed.
+K-means is an unsupervised clustering algorithm. It begins by choosing a value for *K*, indicating the desired number of clusters. Once this value has been chosen, then *K* rows/points are randomly chosen within a matrix and are assigned as centroids or centers of a cluster. Then the [Euclidean Distance](https://en.wikipedia.org/wiki/Euclidean_distance) is calculated for each row to each centroid. This creates the distance matrix of *n* rows and *K* columns where each row consists of the distances to each centroid. Then for each row in the distance matrix, the minimum distance is used to assign the row to a cluster. Then within each cluster, or matrix subset, all of the rows are averaged together to create a new centroid. Then the Euclidean Distance calculation and cluster assignment process is repeated and compared with the previous cluster assignments until there is no difference (convergence) between cluster assignments or a predetermined number of iterations has been completed.
 
 I chose to break down the task into a series of functions implementing linear algebra and minimizing the use of for loops as much as possible and so that it can run in *n* dimensions. As an added incentive, for loops in R are notoriously slow.
 
 #### Calculate the Euclidean distance between a matrix and vector
 
-Because a row is really a vector, we use linear algebra to calcuate the distance between a vector and a matrix.
+Because a row is really a vector, we use linear algebra to calculate the distance between a vector and a matrix.
 
 ``` r
 vec_dist <- function(matrix,vec) {
@@ -26,7 +26,7 @@ vec_dist <- function(matrix,vec) {
 
 #### Create the distance matrix
 
-This way, the abstraction continues to build by calling the `vec_dist` function above for k centroids returing the distance matrix.
+This way, the abstraction continues to build by calling the `vec_dist` function above for k centroids returning the distance matrix.
 
 ``` r
 mat_dist <- function(matrix, centroids, K) {
@@ -84,7 +84,7 @@ run_iteration <- function(matrix, centroids, K){
 
 #### Write one last function to implement the missing parts of the algorithm
 
-Still missing is to select *K* random points, iterate through the various calculations to find the new centriods and compare the results to the intial or prior runs. Once there are no changes (movement between clusters), the result is returned. However, in case it is taking to long for the centroids to converge, stop iterating at a predetermined threshold.
+Still missing is to select *K* random points, iterate through the various calculations to find the new centriods and compare the results to the initial or prior runs. Once there are no changes (movement between clusters), the result is returned. However, in case it is taking to long for the centroids to converge, stop iterating at a predetermined threshold.
 
 ``` r
 k.manual_means <- function(matrix, K, iterations=1000){
