@@ -103,7 +103,7 @@ k.manual_means <- function(matrix, K, iterations=1000){
 }
 ```
 
-Now we can test this implementation of k-means against the one in base R. The key to the comparison is trying to control the randomness as much as possible. The algorithm starts by selecting *K* random points. Hypothetically, if those points are the same between implementations, the results should be the same.
+Now we can test this implementation of k-means against the one in base R. We will use the Iris dataset. The key to the comparison is trying to control the randomness as much as possible. The algorithm starts by selecting *K* random points. Hypothetically, if those points are the same between implementations, the results should be the same.
 
 ``` r
 set.seed(101)
